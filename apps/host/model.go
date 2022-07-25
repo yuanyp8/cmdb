@@ -46,7 +46,7 @@ type Resource struct {
 	Tags        map[string]string `json:"tags"`                        // 标签
 	UpdateAt    int64             `json:"update_at"`                   // 更新时间
 	SyncAt      int64             `json:"sync_at"`                     // 同步时间
-	Account     string            `json:"accout"`                      // 资源的所属账号
+	Account     string            `json:"account"`                     // 资源的所属账号
 	PublicIP    string            `json:"public_ip"`                   // 公网IP
 	PrivateIP   string            `json:"private_ip"`                  // 内网IP
 }
