@@ -37,7 +37,8 @@ func TestGetDB(t *testing.T) {
 
 	if should.NoError(err) {
 		cfg.InitGlobal()
-		conf.C().MySQL.GetDB()
+		_, err := conf.C().MySQL.GetDB()
+		should.NoError(err)
 	}
 }
 
