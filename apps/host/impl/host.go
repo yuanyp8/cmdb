@@ -30,12 +30,11 @@ func (i *HostServiceImpl) CreateHost(ctx context.Context, ins *host.Host) (*host
 
 func (i *HostServiceImpl) QueryHost(ctx context.Context, req *host.QueryHostRequest) (*host.HostSet, error) {
 	// 基于sqlbuilder生成query语句
-	query := sqlbuilder.NewQuery(queryHostSQL).Order("creat_at").Desc().Limit(int64(req.OffSet()), uint(req.PageSize))
+	query := sqlbuilder.NewQuery(queryHostSQL).Order("create_at").Desc().Limit(int64(req.OffSet()), uint(req.PageSize))
 	// build 查询语句
 	sqlStr, args := query.BuildQuery()
 	i.l.Debugf("sql: %s, args: %v", sqlStr, args)
 
-	/* Dao */
 	// Prepare
 	stmt, err := i.db.PrepareContext(ctx, sqlStr)
 	if err != nil {
@@ -62,12 +61,23 @@ func (i *HostServiceImpl) QueryHost(ctx context.Context, req *host.QueryHostRequ
 		); err != nil {
 			return nil, err
 		}
+		// 将查询到的每条ins数据写入HostSet
 		set.Add(ins)
 	}
 
 	// total统计
+	countStr, args := query.BuildCount()
+	countStmt, err := i.db.PrepareContext(ctx, countStr)
+	if err != nil {
+		return nil, fmt.Errorf("prepare count stmt error, %s", err)
+	}
+	defer countStmt.Close()
 
-	return nil, nil
+	if err := countStmt.QueryRow(args...).Scan(&set.Total); err != nil {
+		return nil, fmt.Errorf("count stmt query error, %s", err)
+	}
+
+	return set, nil
 }
 
 func (i *HostServiceImpl) DescribeHost(ctx context.Context, req *host.DescribeHostRequest) (*host.Host, error) {
