@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"github.com/go-playground/validator/v10"
 	"github.com/imdario/mergo"
+	"net/http"
+	"strconv"
 	"time"
 )
 
@@ -126,6 +128,24 @@ func NewQueryHostRequest() *QueryHostRequest {
 		PageSize:   20,
 		PageNumber: 1,
 	}
+}
+
+func NewQueryHostFromHTTP(r *http.Request) *QueryHostRequest {
+	req := NewQueryHostRequest()
+	queryStr := r.URL.Query()
+
+	pageSize := queryStr.Get("page_size")
+	if pageSize != "" {
+		req.PageSize, _ = strconv.Atoi(pageSize)
+	}
+
+	pageNum := queryStr.Get("page_number")
+	if pageNum != "" {
+		req.PageNumber, _ = strconv.Atoi(pageNum)
+	}
+	req.Keywords = queryStr.Get("kws")
+
+	return req
 }
 
 func (req *QueryHostRequest) GetPageSize() uint {
