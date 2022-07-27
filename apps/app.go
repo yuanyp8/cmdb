@@ -74,3 +74,11 @@ func InitGin(r gin.IRouter) {
 		v.Registry(r)
 	}
 }
+
+// LoadedGinApps 已经加载完成的Gin App有哪些
+func LoadedGinApps() (names []string) {
+	for k := range ginApps {
+		names = append(names, k)
+	}
+	return
+}
