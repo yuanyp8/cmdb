@@ -6,9 +6,9 @@ key  = "this is your app key"
 
 [mysql]
 host = "127.0.0.1"
-port = "3306"
+port = "33060"
 username = "cmdb"
-password = "xxxx"
+password = "Cmdb@123456"
 database = "cmdb"
 
 [log]

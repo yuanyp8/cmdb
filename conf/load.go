@@ -43,3 +43,14 @@ func C() *Config {
 	}
 	return global
 }
+
+func LoadConfig(filepath string) error {
+	cfg, err := LoadConfigFromTomlAndENV(filepath)
+	if err != nil {
+		return err
+	}
+	if err := cfg.InitGlobal(); err != nil {
+		return err
+	}
+	return nil
+}

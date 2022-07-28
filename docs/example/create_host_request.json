@@ -1,0 +1,8 @@
+{
+  "id": "ins-12",
+  "region": "cn-hangzhou",
+  "type": "sm1",
+  "name": "接口测试",
+  "cpu": 1,
+  "memory": 2048
+}
