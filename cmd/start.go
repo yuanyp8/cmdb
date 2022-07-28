@@ -131,7 +131,6 @@ func (m *manager) WaitStop(ch <-chan os.Signal) {
 }
 
 func init() {
-	// TODO
-	StartCmd.PersistentFlags()
+	StartCmd.PersistentFlags().StringVarP(&confFile, "config", "f", "etc/demo.toml", "cmdb api 配置文件路径")
 	RootCmd.AddCommand(StartCmd)
 }

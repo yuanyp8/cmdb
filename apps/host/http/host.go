@@ -60,12 +60,12 @@ func (h *Handler) putHost(c *gin.Context) {
 	req.Id = c.Param("id")
 
 	// 进行接口调用
-	set, err := h.svc.UpdateHost(c.Request.Context(), req)
+	host, err := h.svc.UpdateHost(c.Request.Context(), req)
 	if err != nil {
 		response.Failed(c.Writer, err)
 		return
 	}
-	response.Success(c.Writer, set)
+	response.Success(c.Writer, host)
 }
 
 func (h *Handler) patchHost(c *gin.Context) {
@@ -77,13 +77,13 @@ func (h *Handler) patchHost(c *gin.Context) {
 	}
 	req.Id = c.Param("id")
 
-	set, err := h.svc.UpdateHost(c.Request.Context(), req)
+	host, err := h.svc.UpdateHost(c.Request.Context(), req)
 	if err != nil {
 		response.Failed(c.Writer, err)
 		return
 	}
 
-	response.Success(c.Writer, set)
+	response.Success(c.Writer, host)
 }
 
 func (h *Handler) deleteHost(c *gin.Context) {

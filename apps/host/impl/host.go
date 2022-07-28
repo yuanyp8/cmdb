@@ -39,6 +39,7 @@ func (i *HostServiceImpl) QueryHost(ctx context.Context, req *host.QueryHostRequ
 			req.Keywords+"%",
 		)
 	}
+	// 通过Limit设置分页
 	query.Limit(req.OffSet(), req.GetPageSize())
 
 	// build 查询语句
@@ -130,13 +131,18 @@ func (i *HostServiceImpl) UpdateHost(ctx context.Context, req *host.UpdateHostRe
 	switch req.UpdateMode {
 	case host.UPDATE_MODE_PUT:
 		if err := ins.Put(req.Host); err != nil {
+			i.l.With(logger.NewAny("func", "UpdateHost")).Named("PUT").Errorf("put host failed, %s", err)
 			return nil, err
 		}
+		i.l.With(logger.NewAny("func", "UpdateHost")).Named("PUT").Debug("put host success")
 	case host.UPDATE_MODE_PATCH:
 		// 整个对象的局部更新
 		if err := ins.Patch(req.Host); err != nil {
+			i.l.With(logger.NewAny("func", "UpdateHost")).Named("UPDATE").Errorf("patch host failed, %s", err)
+
 			return nil, err
 		}
+		i.l.With(logger.NewAny("func", "UpdateHost")).Named("UPDATE").Debug("patch host success")
 	default:
 		return nil, fmt.Errorf("update_mode only requred put/patch")
 	}

@@ -1,0 +1,26 @@
+{
+  "code": 0,
+  "data": {
+    "id": "ins-12",
+    "vendor": 0,
+    "region": "cn-hangzhou",
+    "create_at": 1658969621574,
+    "expire_at": 0,
+    "type": "sm1",
+    "name": "接口测试",
+    "description": "",
+    "status": "",
+    "update_at": 0,
+    "sync_at": 0,
+    "account": "",
+    "public_ip": "",
+    "private_ip": "",
+    "cpu": 1,
+    "memory": 2048,
+    "gpu_amount": 0,
+    "gpu_spec": "",
+    "os_type": "",
+    "os_name": "",
+    "serial_number": ""
+  }
+}
