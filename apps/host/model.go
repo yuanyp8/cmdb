@@ -99,7 +99,7 @@ func (h *Host) Patch(obj *Host) error {
 	// 	h.CPU = obj.CPU
 	// }
 	// 比如 obj.A  obj.B  只想修改obj.B该属性
-	return mergo.Merge(h, obj)
+	return mergo.Merge(h, obj, mergo.WithOverride)
 }
 
 var validate = validator.New()
